@@ -1,0 +1,191 @@
+Created by PLY (http://www.dabeaz.com/ply)
+
+Unused terminals:
+
+    NUMBER
+
+Grammar
+
+Rule 0     S' -> term
+Rule 1     term -> application
+Rule 2     term -> abstraction
+Rule 3     abstraction -> LAMBDA VARIABLE DOT term
+Rule 4     application -> application atomic
+Rule 5     application -> atomic
+Rule 6     atomic -> VARIABLE
+Rule 7     atomic -> LPAREN term RPAREN
+
+Terminals, with rules where they appear
+
+DOT                  : 3
+LAMBDA               : 3
+LPAREN               : 7
+NUMBER               : 
+RPAREN               : 7
+VARIABLE             : 3 6
+error                : 
+
+Nonterminals, with rules where they appear
+
+abstraction          : 2
+application          : 1 4
+atomic               : 4 5
+term                 : 3 7 0
+
+
+state 0
+
+    (0) S' -> . term
+    (1) term -> . application
+    (2) term -> . abstraction
+    (4) application -> . application atomic
+    (5) application -> . atomic
+    (3) abstraction -> . LAMBDA VARIABLE DOT term
+    (6) atomic -> . VARIABLE
+    (7) atomic -> . LPAREN term RPAREN
+
+    LAMBDA          shift and go to state 5
+    VARIABLE        shift and go to state 6
+    LPAREN          shift and go to state 7
+
+    term                           shift and go to state 1
+    application                    shift and go to state 2
+    abstraction                    shift and go to state 3
+    atomic                         shift and go to state 4
+
+state 1
+
+    (0) S' -> term .
+
+
+
+state 2
+
+    (1) term -> application .
+    (4) application -> application . atomic
+    (6) atomic -> . VARIABLE
+    (7) atomic -> . LPAREN term RPAREN
+
+    $end            reduce using rule 1 (term -> application .)
+    RPAREN          reduce using rule 1 (term -> application .)
+    VARIABLE        shift and go to state 6
+    LPAREN          shift and go to state 7
+
+    atomic                         shift and go to state 8
+
+state 3
+
+    (2) term -> abstraction .
+
+    $end            reduce using rule 2 (term -> abstraction .)
+    RPAREN          reduce using rule 2 (term -> abstraction .)
+
+
+state 4
+
+    (5) application -> atomic .
+
+    VARIABLE        reduce using rule 5 (application -> atomic .)
+    LPAREN          reduce using rule 5 (application -> atomic .)
+    $end            reduce using rule 5 (application -> atomic .)
+    RPAREN          reduce using rule 5 (application -> atomic .)
+
+
+state 5
+
+    (3) abstraction -> LAMBDA . VARIABLE DOT term
+
+    VARIABLE        shift and go to state 9
+
+
+state 6
+
+    (6) atomic -> VARIABLE .
+
+    VARIABLE        reduce using rule 6 (atomic -> VARIABLE .)
+    LPAREN          reduce using rule 6 (atomic -> VARIABLE .)
+    $end            reduce using rule 6 (atomic -> VARIABLE .)
+    RPAREN          reduce using rule 6 (atomic -> VARIABLE .)
+
+
+state 7
+
+    (7) atomic -> LPAREN . term RPAREN
+    (1) term -> . application
+    (2) term -> . abstraction
+    (4) application -> . application atomic
+    (5) application -> . atomic
+    (3) abstraction -> . LAMBDA VARIABLE DOT term
+    (6) atomic -> . VARIABLE
+    (7) atomic -> . LPAREN term RPAREN
+
+    LAMBDA          shift and go to state 5
+    VARIABLE        shift and go to state 6
+    LPAREN          shift and go to state 7
+
+    term                           shift and go to state 10
+    application                    shift and go to state 2
+    abstraction                    shift and go to state 3
+    atomic                         shift and go to state 4
+
+state 8
+
+    (4) application -> application atomic .
+
+    VARIABLE        reduce using rule 4 (application -> application atomic .)
+    LPAREN          reduce using rule 4 (application -> application atomic .)
+    $end            reduce using rule 4 (application -> application atomic .)
+    RPAREN          reduce using rule 4 (application -> application atomic .)
+
+
+state 9
+
+    (3) abstraction -> LAMBDA VARIABLE . DOT term
+
+    DOT             shift and go to state 11
+
+
+state 10
+
+    (7) atomic -> LPAREN term . RPAREN
+
+    RPAREN          shift and go to state 12
+
+
+state 11
+
+    (3) abstraction -> LAMBDA VARIABLE DOT . term
+    (1) term -> . application
+    (2) term -> . abstraction
+    (4) application -> . application atomic
+    (5) application -> . atomic
+    (3) abstraction -> . LAMBDA VARIABLE DOT term
+    (6) atomic -> . VARIABLE
+    (7) atomic -> . LPAREN term RPAREN
+
+    LAMBDA          shift and go to state 5
+    VARIABLE        shift and go to state 6
+    LPAREN          shift and go to state 7
+
+    term                           shift and go to state 13
+    application                    shift and go to state 2
+    abstraction                    shift and go to state 3
+    atomic                         shift and go to state 4
+
+state 12
+
+    (7) atomic -> LPAREN term RPAREN .
+
+    VARIABLE        reduce using rule 7 (atomic -> LPAREN term RPAREN .)
+    LPAREN          reduce using rule 7 (atomic -> LPAREN term RPAREN .)
+    $end            reduce using rule 7 (atomic -> LPAREN term RPAREN .)
+    RPAREN          reduce using rule 7 (atomic -> LPAREN term RPAREN .)
+
+
+state 13
+
+    (3) abstraction -> LAMBDA VARIABLE DOT term .
+
+    $end            reduce using rule 3 (abstraction -> LAMBDA VARIABLE DOT term .)
+    RPAREN          reduce using rule 3 (abstraction -> LAMBDA VARIABLE DOT term .)
+
